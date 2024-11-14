@@ -5,10 +5,9 @@ export class Gameboard {
         this.board = Array.from({ length: 10 }, () => {
             return Array(10).fill(0);  // Explicitly return the row
         })
-        this.shipLength = 0 - ship.length; 
+        this.shipLength = ship.length; 
     };
         
-
     displayBoard() {
         const boardContainer = document.getElementById(`player${this.player}-board`);
         boardContainer.innerHTML = '';  // Clear the board before rendering
@@ -24,35 +23,51 @@ export class Gameboard {
              });
         });
     }
-    ShipPieces() {
-        if(this.shipLength <= 0){
-            this.shipLength ++;
-            return this.shipLength;
-        }
-    }
+
     placeShip() {
         const cells = document.querySelectorAll('.cell');
         let head = false;
-        let headCell =[];
-        let piecesRemaining =
+        let headCell = []; // Stores the head cell's row and column as [row, col]
+        let cellsPlaced = 0; // Tracks the number of ship cells placed
+        
         cells.forEach(cell => {
-            cell.addEventListener('click',() => {
-                if(!head && this.ShipPieces() <= 0) {   // Starting point of the ship
-                    head = true;   // We recognize head of ship has been placed
-                    cell.dataset.ship = this.ship.length;  // we make a copy from the head coordinates so we can calculate if placement is legal
-                    cell.id = 'ship'; // we color the square to know its our ship 
-                    // we push the values of the coordinates in our headcell array
-                    headCell.push(cell.dataset.row); 
-                    headCell.push(cell.dataset.col);
-                    console.log(headCell);
-                }else if(head = true && this.ShipPieces() <= 0) { // the head has been placed and ship not completed
-                        if(cell.dataset.row == headCell[0] || cell.dataset.col == headCell[1]){
-                            console.log("LEGAL MOVE");
-                            cell.id = 'ship';
-                        }
+            cell.addEventListener('click', () => {
+                // If the head is not placed yet and we need more cells to complete the ship
+                if (!head && cellsPlaced < this.shipLength) {
+                    head = true; // Mark head as placed
+                    cell.dataset.ship = this.ship.length; // Assign the head indicator
+                    cell.id = 'ship'; // Color the cell to mark as part of the ship
+                    headCell = [parseInt(cell.dataset.row), parseInt(cell.dataset.col)]; // Store head cell coordinates
+                    cellsPlaced++;
+                    console.log(`Head placed at: ${headCell}`);
+                } 
+                // Placing the rest of the ship, ensuring alignment and contiguity
+                else if (head && cellsPlaced < this.shipLength) {
+                    const currentRow = parseInt(cell.dataset.row);
+                    const currentCol = parseInt(cell.dataset.col);
+                    
+                    // Check if the current cell is aligned either horizontally or vertically with the head cell
+                    if ((currentRow === headCell[0] || currentCol === headCell[1]) &&
+                        // Ensure the cell is contiguous with previously placed parts
+                        Math.abs(currentRow - headCell[0]) + Math.abs(currentCol - headCell[1]) === cellsPlaced) { // Manhattan path
+    
+                        console.log("LEGAL MOVE");
+                        console.log(`X is ${currentRow} Y is ${currentCol}`);
+                        cell.id = 'ship';
+                        cellsPlaced++;
+                        
+                        // Optionally update the head cell coordinates to continue in one direction
+                    } else {
+                        console.log("ILLEGAL MOVE: Must be in a straight line and contiguous.");
+                    }
                 }
-            })
-        })
+    
+                // If ship placement is complete
+                if (cellsPlaced === this.shipLength) {
+                    console.log("Ship placement complete!");
+                }
+            });
+        });
     }
     receiveAttack() {
 
