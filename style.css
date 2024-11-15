@@ -50,15 +50,40 @@ img {
   margin: 10px;
 }
 
+.buttonContainer {
+  display: flex;
+  align-self: center;
+}
+
+.button{
+  width: 100px;
+  height: 50px;
+}
+
 .cell1,
-.cell2,
-.Acell1,
-.Acell2 {
+.Acell1 {
   width: 40px;
   height: 40px;
   background-color: #3498db; /* Water color */
   border: 1px solid #2980b9;
   cursor: pointer;
+}
+
+.cell2,
+.Acell2 {
+  width: 40px;
+  height: 40px;
+  background-color: purple; /* Water color */
+  border: 1px solid whitesmoke;
+  cursor: pointer;
+}
+
+.player1 {
+  background-color: transparent;
+}
+
+.invisPlayer1 {
+  background-color: #3498db; 
 }
 
 #hit {
