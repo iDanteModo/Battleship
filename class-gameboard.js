@@ -109,10 +109,12 @@ export class Gameboard {
                 let row = +aCell.dataset.row;
                 const targetCell = document.querySelector(`.cell${this.attackId}[data-row="${row}"][data-col="${col}"]`);
                 console.log(targetCell);
-                if(targetCell.id == "ship"){
+                if(targetCell.id == "ship" && aCell.id != "hit"){
+                    console.log("DIRECT HIT")
                     aCell.id = "hit";
-                }else {
+                }else if(aCell.id != "hit" && aCell.id != "miss") {
                     aCell.id = 'miss';
+                    console.log("MISS")
                 }
             })
         })
@@ -124,7 +126,7 @@ export class Gameboard {
     }
 }
 
-
+// Update so you cant hit the same square twice !!!!!!!
 
 
 // for(let i = 0; i < this.ships.length; i++) {
