@@ -79,6 +79,7 @@ export class Gameboard {
                             Math.abs(currentRow - headCell[0]) + Math.abs(currentCol - headCell[1]) === cellsPlaced) { // Manhattan path
                             console.log("LEGAL MOVE");
                             console.log(`X is ${currentRow} Y is ${currentCol}`);
+                            cell.dataset.ship = this.ships[i].ship.length; 
                             cell.id = 'ship';
                             cellsPlaced++;
                             
@@ -102,23 +103,45 @@ export class Gameboard {
     }
     attack() {
         const player1AttackCells = document.querySelectorAll(`.Acell${this.id}`);
-
         player1AttackCells.forEach(aCell => {
             aCell.addEventListener('click', () => {
                 let col = +aCell.dataset.col;
                 let row = +aCell.dataset.row;
                 const targetCell = document.querySelector(`.cell${this.attackId}[data-row="${row}"][data-col="${col}"]`);
-                console.log(targetCell);
                 if(targetCell.id == "ship" && aCell.id != "hit"){
                     console.log("DIRECT HIT")
                     aCell.id = "hit";
+                    if(targetCell.dataset.ship == 2){
+                        this.ships[0].hit();
+
+                    }else if(targetCell.dataset.ship == 3){
+                        this.ships[1].hit();
+
+                    }else if(targetCell.dataset.ship == 4) {
+                        this.ships[2].hit();
+
+                    }
                 }else if(aCell.id != "hit" && aCell.id != "miss") {
                     aCell.id = 'miss';
                     console.log("MISS")
                 }
+            this.checkIfAllSunk();
             })
         })
-        
+    }
+    checkIfAllSunk() {
+        let gameOver = 0;
+        for(let i = 0; i < 3; i++){
+            if(this.ships[i].ship.sunk == true) {
+                console.log(this.ships[i].ship.sunk);
+                gameOver ++;
+            }
+        }
+        if(gameOver == 3){
+            alert(`Game OVER ! Player ${this.id} WON`);
+            return true;
+        }
+        console.log(`GameOver Value: ${gameOver}`);
     }
 
     sunkMessage() {
@@ -126,8 +149,7 @@ export class Gameboard {
     }
 }
 
-// Update so you cant hit the same square twice !!!!!!!
-
+//fix so when you place a ship with length 3 for example you can go forward and back from head , not only 1 direction
 
 // for(let i = 0; i < this.ships.length; i++) {
 //     while(this.ships[i].ship.placed === true ){

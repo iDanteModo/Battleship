@@ -11,11 +11,13 @@ export class Ship {
     hit() {
         this.ship.hit ++;
         this.sunk();
+        console.log("HIT");
     }
 
     sunk() {
-        if(this.ship.hit === this.ship.length) {
+        if(this.ship.hit === this.ship.length){
             this.ship.sunk = true;
+            // console.log("TRUE TRUE");
         }
     }
 
@@ -26,4 +28,6 @@ export class Ship {
 // shipLength2.hit();
 // shipLength2.hit();
 // shipLength2
+// console.log(shipLength2.ship.sunk)
+
 
