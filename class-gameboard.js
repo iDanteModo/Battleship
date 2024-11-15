@@ -6,6 +6,9 @@ export class Gameboard {
         })
         this.ships = [new Ship(2), new Ship(3), new Ship(4)]
         this.id = id;
+        this.attackBoard = Array.from({ length: 10 }, () => {
+            return Array(10).fill(0);
+        });
         
     };
         
@@ -23,6 +26,22 @@ export class Gameboard {
                 boardContainer.appendChild(cellElement);
              });
         });
+    }
+
+    displayAttackBoard() {
+        const attackBoardContainer = document.getElementById(`player${this.id}-attack-board`);
+        attackBoardContainer.innerHTML = '';
+        this.board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add(`Acell${this.id}`);
+                // Add row and column as data attributes for each cell
+                cellElement.dataset.row = rowIndex;
+                cellElement.dataset.col = colIndex;
+                attackBoardContainer.appendChild(cellElement);
+             });
+        });
+        
     }
 
     placeShip() {
@@ -70,17 +89,35 @@ export class Gameboard {
                         head = false;
                     }
                 }else if(i === 3) {
-                    alert('S');
+                    
                     return true;
                 }
             });
         });
     }
-    // receiveAttack() {
+    attack() {
+        const player2Cells = document.querySelectorAll('.cell2');
+        const player1AttackCells = document.querySelectorAll('.Acell1');
+
+        player1AttackCells.forEach(aCell => {
+            aCell.addEventListener('click', () => {
+                let col = aCell.dataset.col;
+                let row = aCell.dataset.row;
+                // console.log(row);
+                // console.log(col);
+                console.log(player2Cells[row].dataset.row);
+                console.log(player2Cells[col].dataset.col);
+
+                // player2Cells.forEach(p2Cell => {
+                //     console.log(p2Cell.dataset.row);
+                // })
+            })
+        })
         
-    // }
+    }
 
     sunkMessage() {
+        
     }
 }
 

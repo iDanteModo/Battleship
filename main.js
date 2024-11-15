@@ -9,9 +9,13 @@ function play(){
     console.log(player1);
     console.log(player2);
     player1.player.gameboard.displayBoard();
+    player2.player.gameboard.displayBoard();
+    player1.player.gameboard.displayAttackBoard();
+    player2.player.gameboard.displayAttackBoard(); 
     player1.player.gameboard.placeShip();
-    player2.player.gameboard.displayBoard(); 
     player2.player.gameboard.placeShip();
+    player1.player.gameboard.attack();
+    // player2.player.gameboard.placeShip();
 }
 
 play();

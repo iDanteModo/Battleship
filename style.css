@@ -51,7 +51,9 @@ img {
 }
 
 .cell1,
-.cell2 {
+.cell2,
+.Acell1,
+.Acell2 {
   width: 40px;
   height: 40px;
   background-color: #3498db; /* Water color */
