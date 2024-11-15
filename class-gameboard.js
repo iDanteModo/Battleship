@@ -1,21 +1,22 @@
 import { Ship } from './class-Ship.js';
 export class Gameboard {
-    constructor() {
+    constructor(id) {
         this.board = Array.from({ length: 10 }, () => {
             return Array(10).fill(0);  // Explicitly return the row
         })
         this.ships = [new Ship(2), new Ship(3), new Ship(4)]
+        this.id = id;
         
     };
         
     displayBoard() {
-        const boardContainer = document.getElementById(`player1-board`);
+        const boardContainer = document.getElementById(`player${this.id}-board`);
         boardContainer.innerHTML = '';  // Clear the board before rendering
         // Loop through the rows and columns of the board and create cells
         this.board.forEach((row, rowIndex) => {
             row.forEach((cell, colIndex) => {
                 const cellElement = document.createElement('div');
-                cellElement.classList.add('cell');
+                cellElement.classList.add(`cell${this.id}`);
                 // Add row and column as data attributes for each cell
                 cellElement.dataset.row = rowIndex;
                 cellElement.dataset.col = colIndex;
@@ -25,7 +26,7 @@ export class Gameboard {
     }
 
     placeShip() {
-        const cells = document.querySelectorAll('.cell');
+        const cells = document.querySelectorAll(`.cell${this.id}`);
         let head = false;
         let headCell = []; // Stores the head cell's row and column as [row, col]
         let cellsPlaced = 0; // Tracks the number of ship cells placed
@@ -61,13 +62,16 @@ export class Gameboard {
                         } else {
                             console.log("ILLEGAL MOVE: Must be in a straight line and contiguous.");
                         }
-                    }else if(cellsPlaced >= this.ships[i].ship.length && i < this.ships.length - 1){
-                        alert("Next Boat");
+                    }else if(cellsPlaced >= this.ships[i].ship.length && i < this.ships.length ){
+                        // alert("Next Boat");
                         i ++;
                         cellsPlaced =0;
                         headCell =[];
                         head = false;
                     }
+                }else if(i === 3) {
+                    alert('S');
+                    return true;
                 }
             });
         });

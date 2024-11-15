@@ -1,9 +1,10 @@
 import { Gameboard } from './class-gameboard.js';
 export class Player {
-    constructor() {
+    constructor(id) {
         this.player = {
+            id : id,
             name: "",
-            gameboard: new Gameboard(),
+            gameboard: new Gameboard(id),
             won: false,
         }
         }
