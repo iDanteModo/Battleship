@@ -9,6 +9,11 @@ export class Gameboard {
         this.attackBoard = Array.from({ length: 10 }, () => {
             return Array(10).fill(0);
         });
+        if(this.id === 1) {
+            this.attackId = 2;
+        }else {
+            this.attackId = 1;
+        }
         
     };
         
@@ -96,21 +101,19 @@ export class Gameboard {
         });
     }
     attack() {
-        const player2Cells = document.querySelectorAll('.cell2');
-        const player1AttackCells = document.querySelectorAll('.Acell1');
+        const player1AttackCells = document.querySelectorAll(`.Acell${this.id}`);
 
         player1AttackCells.forEach(aCell => {
             aCell.addEventListener('click', () => {
-                let col = aCell.dataset.col;
-                let row = aCell.dataset.row;
-                // console.log(row);
-                // console.log(col);
-                console.log(player2Cells[row].dataset.row);
-                console.log(player2Cells[col].dataset.col);
-
-                // player2Cells.forEach(p2Cell => {
-                //     console.log(p2Cell.dataset.row);
-                // })
+                let col = +aCell.dataset.col;
+                let row = +aCell.dataset.row;
+                const targetCell = document.querySelector(`.cell${this.attackId}[data-row="${row}"][data-col="${col}"]`);
+                console.log(targetCell);
+                if(targetCell.id == "ship"){
+                    aCell.id = "hit";
+                }else {
+                    aCell.id = 'miss';
+                }
             })
         })
         

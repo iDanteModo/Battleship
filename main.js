@@ -15,6 +15,7 @@ function play(){
     player1.player.gameboard.placeShip();
     player2.player.gameboard.placeShip();
     player1.player.gameboard.attack();
+    player2.player.gameboard.attack();
     // player2.player.gameboard.placeShip();
 }
 
