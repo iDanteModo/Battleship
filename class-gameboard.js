@@ -35,7 +35,7 @@ export class Gameboard {
             cell.addEventListener('click', () => {
                 // If the head is not placed yet and we need more cells to complete the ship
                 if(i < this.ships.length){
-                    if (!head && cellsPlaced < this.ships[i].ship.length) {
+                    if (!head && cellsPlaced < this.ships[i].ship.length && cell.id != 'ship') {
                         head = true; // Mark head as placed
                         cell.dataset.ship = this.ships[i].ship.length; // Assign the head indicator
                         cell.id = 'ship'; // Color the cell to mark as part of the ship
@@ -49,10 +49,9 @@ export class Gameboard {
                         const currentCol = parseInt(cell.dataset.col);
                         
                         // Check if the current cell is aligned either horizontally or vertically with the head cell
-                        if ((currentRow === headCell[0] || currentCol === headCell[1]) &&
+                        if ((cell.id != "ship" && currentRow === headCell[0] || currentCol === headCell[1]) &&
                             // Ensure the cell is contiguous with previously placed parts
                             Math.abs(currentRow - headCell[0]) + Math.abs(currentCol - headCell[1]) === cellsPlaced) { // Manhattan path
-        
                             console.log("LEGAL MOVE");
                             console.log(`X is ${currentRow} Y is ${currentCol}`);
                             cell.id = 'ship';
