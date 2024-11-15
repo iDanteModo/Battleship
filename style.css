@@ -51,13 +51,25 @@ img {
 }
 
 .buttonContainer {
+  height: 825px;
   display: flex;
+  flex-direction: column;
   align-self: center;
+  gap: 300px;
+}
+
+.buttonContainer h2 {
+  font-size: 60px;
+}
+
+.buttonContainer h3 {
+  font-size: 45px;
 }
 
 .button{
   width: 100px;
   height: 50px;
+  align-self: center;
 }
 
 .cell1,
@@ -82,9 +94,6 @@ img {
   background-color: transparent;
 }
 
-.invisPlayer1 {
-  background-color: #3498db; 
-}
 
 #hit {
   background-color: red;

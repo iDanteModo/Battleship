@@ -55,6 +55,7 @@ export class Gameboard {
         let headCell = []; // Stores the head cell's row and column as [row, col]
         let cellsPlaced = 0; // Tracks the number of ship cells placed
         let i = 0;
+        let finish = false;
         
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
@@ -95,11 +96,13 @@ export class Gameboard {
                         head = false;
                     }
                 }else if(i === 3) {
-                    
-                    return true;
+                    alert("Ship placement finish ! Click Swap and let the other player start the placements!");
+                    finish = true;
                 }
+                console.log(finish);
             });
         });
+        return finish;
     }
     attack() {
         const player1AttackCells = document.querySelectorAll(`.Acell${this.id}`);

@@ -3,7 +3,7 @@ const player1 = document.querySelector('.player1');
 const player2 = document.querySelector('.player2');
 
 export function swapPlayers() {
-    let i = 0;
+    let i = 1;
     let isChanging = false;  // To prevent the immediate toggle before the timeout finishes
 
     button.addEventListener('click', () => {
