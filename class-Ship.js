@@ -1,10 +1,9 @@
 export class Ship {
-    constructor(length, player, name) {
+    constructor(length) {
         this.ship = {
-            player: player,
-            name: name,
             length: length,
             hit: 0,
+            placed: false,
             sunk: false
         }
     }
@@ -23,8 +22,8 @@ export class Ship {
 
 }
 
-const shipLength2 = new Ship(2, 1, 'Razvan');
-shipLength2.hit();
-shipLength2.hit();
-shipLength2
+// const shipLength2 = new Ship(2, 1, 'Razvan');
+// shipLength2.hit();
+// shipLength2.hit();
+// shipLength2
 

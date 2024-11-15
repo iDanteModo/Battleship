@@ -1,24 +1,16 @@
-import { Ship } from './class-Ship.js';
-import { Gameboard } from './class-gameboard.js';
+import { Player } from './class-Player.js'
 
 
-// Function to display the board on the webpage
 
 
-const shipLength2 = new Ship(2);
-shipLength2.hit();
-shipLength2.hit();
 
+const player1 = new Player();
+const player2 = new Player();
 
-let ship = {
-    player: 1,
-    name: 'Razvan',
-    length: 3,
-    hit: 2,
-    sunk: false
-}
+console.log(player1);
+console.log(player2);
 
-let test = new Gameboard(ship);
-test.displayBoard();
-test.placeShip();
-console.log(test);
+player1.player.gameboard.displayBoard();
+player1.player.gameboard.placeShip();
+console.log(player1.player.gameboard.ships[0].ship.length);
+

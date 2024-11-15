@@ -1,15 +1,15 @@
+import { Ship } from './class-Ship.js';
 export class Gameboard {
-    constructor(ship, player = ship.player) {
-        this.player = ship.player;
-        this.ship = ship;
+    constructor() {
         this.board = Array.from({ length: 10 }, () => {
             return Array(10).fill(0);  // Explicitly return the row
         })
-        this.shipLength = ship.length; 
+        this.ships = [new Ship(2), new Ship(3), new Ship(4)]
+        
     };
         
     displayBoard() {
-        const boardContainer = document.getElementById(`player${this.player}-board`);
+        const boardContainer = document.getElementById(`player1-board`);
         boardContainer.innerHTML = '';  // Clear the board before rendering
         // Loop through the rows and columns of the board and create cells
         this.board.forEach((row, rowIndex) => {
@@ -33,16 +33,17 @@ export class Gameboard {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
                 // If the head is not placed yet and we need more cells to complete the ship
-                if (!head && cellsPlaced < this.shipLength) {
+
+                if (!head && cellsPlaced < this.ships[0].ship.length) {
                     head = true; // Mark head as placed
-                    cell.dataset.ship = this.ship.length; // Assign the head indicator
+                    cell.dataset.ship = this.ships[0].ship.length; // Assign the head indicator
                     cell.id = 'ship'; // Color the cell to mark as part of the ship
                     headCell = [parseInt(cell.dataset.row), parseInt(cell.dataset.col)]; // Store head cell coordinates
                     cellsPlaced++;
                     console.log(`Head placed at: ${headCell}`);
                 } 
                 // Placing the rest of the ship, ensuring alignment and contiguity
-                else if (head && cellsPlaced < this.shipLength) {
+                else if (head && cellsPlaced < this.ships[0].ship.length) {
                     const currentRow = parseInt(cell.dataset.row);
                     const currentCol = parseInt(cell.dataset.col);
                     
@@ -69,17 +70,19 @@ export class Gameboard {
             });
         });
     }
-    receiveAttack() {
-
-    }
+    // receiveAttack() {
+        
+    // }
 
     sunkMessage() {
-        if(this.ship.sunk === true) {
-            console.log(`${this.ship.player}'s ship has been sunk ! `)
-        }
     }
 }
 
 
 
 
+// for(let i = 0; i < this.ships.length; i++) {
+//     while(this.ships[i].ship.placed === true ){
+        
+//     }
+// }
